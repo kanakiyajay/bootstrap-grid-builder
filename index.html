@@ -1,0 +1,31 @@
+<html ng-app>
+<head>
+  <title>Bootstrap Grid Builder</title>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="css/grid.css">
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <script type="text/javascript" src="js/angular.min.js"></script>
+  <script type="text/javascript" src="js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="js/app.js"></script>
+</head>
+<body ng-controller="gridCtrl">
+  <div class="container">
+    <h1>Bootstrap Grid Builder</h1>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-2"></div>
+      <div class="col-lg-9 col-md-offset-1">
+        {{model.containers}}
+      </div>
+    </div>
+    <div class="row" ng-repeat="phone in model">
+      <div ng-repeat="col in phone.row" ng-class="getHtmlClass(col)" ng-click="showEditor()"></div>
+    </div>
+    <div class="row">
+      <button class="btn btn-primary" ng-click="addrow()">Add Row</button>
+    </div>
+  </div>
+  <!--<button class="btn btn-primary ">Add Container</button>-->
+</body>
+</html>
