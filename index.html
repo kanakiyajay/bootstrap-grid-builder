@@ -20,14 +20,17 @@
         <li><a href="">Dummy</a></li>
         <li><a href="">Dummy</a></li>
         <li><a href="">Dummy</a></li>
-        <li><a href="">Dummy</a></li>
       </ul>
 
       <ul class="nav navbar-nav navbar-left">
         <li><a href="">Width</a></li>
         <li><a href="">{{getModelData().md}}</a></li>
+        <li><button class="btn btn-default navbar-btn" ng-click="increaseWidth()">+</button><li>
+        <li><button class="btn btn-default navbar-btn" ng-click="decreaseWidth()">-</button><li>
         <li><a href="">Offset</a></li>
         <li><a href="">{{getModelData().md_offset}}</a></li>
+        <li><button class="btn btn-default navbar-btn" ng-click="increaseOffset()">+</button><li>
+        <li><button class="btn btn-default navbar-btn" ng-click="decreaseOffset()">-</button><li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
@@ -47,11 +50,12 @@
   <div class="container">
     <div class="row" ng-repeat="phone in model">
       <div ng-repeat="col in phone.row" ng-class="getHtmlClass(col)" ng-click="showEditor($parent.$index,$index,$event)">
-        {{$index}}
+        {{$index+1}}
       </div>
     </div>
     <div class="row">
-      <button class="btn btn-primary" ng-click="addrow()">Add Row</button>
+      <button class="btn btn-primary" ng-click="addRow()">Add Row</button>
+      <button class="btn btn-primary" ng-click="addCol()">Add Col</button>
     </div>
   </div>
   <!--<button class="btn btn-primary ">Add Container</button>-->
