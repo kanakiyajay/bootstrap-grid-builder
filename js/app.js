@@ -1,3 +1,8 @@
+/** Bootstrap Grid Builder by Jay Kanakiya
+**
+**
+**/
+
 var app = angular.module('bootstrap-grid-builder',[]);
 
 app.controller('gridCtrl',function  ($scope) {
@@ -22,10 +27,15 @@ app.controller('gridCtrl',function  ($scope) {
       }]
   }];
 
+  $scope.deviceSizes = ['480','767','979','1200'];
+  $scope.currentSize = 3;
+
   $scope.currentRow = 1;
   $scope.currentCol = 1;
 
   $scope.inEditor = [];
+
+  $scope.showBtn = false;
 
   /**
   * Functions
@@ -53,9 +63,13 @@ app.controller('gridCtrl',function  ($scope) {
 
 
   $scope.showEditor = function  (rowNumber , colNumber , e) {
+
+    $scope.showBtn = true;
+
     if ($('.ineditor').length) $('.ineditor').removeClass('ineditor');
 
-    $scope.inEditor = $(e.target);
+    arguments.length===2  ? $scope.inEditor = $('#main').find('[class*=col]').first() : $scope.inEditor = $(e.target);
+
     $scope.currentCol = colNumber ;
     $scope.currentRow = rowNumber;
 
@@ -63,6 +77,14 @@ app.controller('gridCtrl',function  ($scope) {
 
   }
 
+  $scope.getActive = function  (number) {
+    if (number === $scope.currentSize) {
+      return "active"
+    }
+    else {
+
+    }
+  }
   /**
   * New Rows and Cols
   **/
@@ -100,7 +122,9 @@ app.controller('gridCtrl',function  ($scope) {
     //Delele if less than 1
       if($scope.getModelData().md === 1 )
       {
-       delete $scope.getModelData().md;
+        //Use array.splice to remove the Col Object
+       $scope.model[$scope.currentRow].row.splice($scope.currentCol);
+       $scope.showBtn = false;
       }
       else{
        $scope.getModelData().md -= 1;
@@ -109,8 +133,6 @@ app.controller('gridCtrl',function  ($scope) {
 
     $scope.increaseOffset = function  () {
     //Should not be greater than 10
-    console.log($scope.getModelData().hasOwnProperty('md_offset'));
-
     if (!$scope.getModelData().hasOwnProperty('md_offset')) {
       $scope.getModelData().md_offset = 1;
     }
@@ -124,7 +146,7 @@ app.controller('gridCtrl',function  ($scope) {
 
     $scope.decreaseOffset = function  () {
     //Delete if less than 1
-    console.log($scope.getModelData().hasOwnProperty('md_offset'));
+
     if ($scope.getModelData().hasOwnProperty('md_offset')) {
 
       if($scope.getModelData().md_offset === 1 )
@@ -138,10 +160,18 @@ app.controller('gridCtrl',function  ($scope) {
 
   }
 
+  $scope.initSelection = function  () {
+    $scope.showEditor(1,1);
+  }
 
+  $scope.init = function  () {
+    $scope.initSelection();
+    $scope.showBtn = false;
+  }
 });
 
 /* StackOverflow referred
   http://stackoverflow.com/questions/15256600/passing-2-index-values-within-nested-ng-repeat
   http://stackoverflow.com/questions/12430820/accessing-clicked-element-in-angularjs
+  http://stackoverflow.com/questions/15458609/angular-js-how-to-execute-function-on-page-load
 */

@@ -8,7 +8,7 @@
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
   <script type="text/javascript" src="js/app.js"></script>
 </head>
-<body ng-controller="gridCtrl">
+<body ng-controller="gridCtrl" ng-init="init()">
   <div class="container-fluid">
     <nav class="navbar" role="navigation">
       <div class="navbar-header">
@@ -27,6 +27,7 @@
         <li><a href="">{{getModelData().md}}</a></li>
         <li><button class="btn btn-default navbar-btn" ng-click="increaseWidth()">+</button><li>
         <li><button class="btn btn-default navbar-btn" ng-click="decreaseWidth()">-</button><li>
+        <!-- Add ng-show here -->
         <li><a href="">Offset</a></li>
         <li><a href="">{{getModelData().md_offset}}</a></li>
         <li><button class="btn btn-default navbar-btn" ng-click="increaseOffset()">+</button><li>
@@ -34,9 +35,9 @@
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-        <li class="active"><a href="#">Desktop</a></li>
-        <li><a href="#">Tablet</a></li>
-        <li><a href="#">Mobile</a></li>
+        <li ng-click="currentSize = 3" ng-class="getActive(3)"><a href="#">Desktop</a></li>
+        <li ng-click="currentSize = 1" ng-class="getActive(1)"><a href="#">Tablet</a></li>
+        <li ng-click="currentSize = 0" ng-class="getActive(0)"><a href="#">Mobile</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Others <b class="caret"></b></a>
           <ul class="dropdown-menu">
@@ -47,7 +48,7 @@
       </div>
     </nav>
   </div>
-  <div class="container">
+  <div class="container" id="main" style="width:{{deviceSizes[currentSize]}}">
     <div class="row" ng-repeat="phone in model">
       <div ng-repeat="col in phone.row" ng-class="getHtmlClass(col)" ng-click="showEditor($parent.$index,$index,$event)">
         {{$index+1}}
@@ -55,7 +56,7 @@
     </div>
     <div class="row">
       <button class="btn btn-primary" ng-click="addRow()">Add Row</button>
-      <button class="btn btn-primary" ng-click="addCol()">Add Col</button>
+      <button class="btn btn-primary" ng-click="addCol()" ng-show="showBtn">Add Col</button>
     </div>
   </div>
   <!--<button class="btn btn-primary ">Add Container</button>-->
