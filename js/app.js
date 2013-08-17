@@ -14,6 +14,7 @@ app.controller('gridCtrl',function  ($scope) {
     {
       row : [
       {
+        xs : 12,
         md : 9
       },
       {
@@ -23,11 +24,33 @@ app.controller('gridCtrl',function  ($scope) {
       ]
     },{
       row : [{
-        md : 12
+        md : 12,
+        xs : 12
       }]
   }];
 
-  $scope.deviceSizes = ['480','767','979','1200'];
+  /*
+  * xs - Extra Small < 768px               >> 0
+  * sm - Small Devices >= 768px      >> 1
+  * md - Medium Devices >= 992px >> 2
+  * lg - Large Devices >= 1200px      >> 3
+  */
+
+  $scope.medias = [{
+    size : 480,
+    prefix : 'xs'
+  },{
+    size : 780,
+    prefix : 'sm'
+  },{
+    size : 992,
+    prefix : 'md'
+  },{
+    size : 1200,
+    prefix : 'lg'
+  }]
+
+  $scope.deviceSizes = ['480','780','992','1200'];
   $scope.currentSize = 3;
 
   $scope.currentRow = 1;
@@ -47,11 +70,12 @@ app.controller('gridCtrl',function  ($scope) {
 
   $scope.getHtmlClass = function  (col) {
 
-    devices = [ 'lg' , 'md' , 'xs' , 'sm' ,'md_offset'];
+    var prefixes = [ 'xs' , 'sm' , 'md' , 'lg'  , 'sm_offset' , 'md_offset' , 'lg_offset'];
+    //Also Add Offsets
     className = "" ;
 
-    for (var i = devices.length - 1; i >= 0; i--) {
-      var shortcode = devices[i];
+    for (var i = prefixes.length - 1; i >= 0; i--) {
+      var shortcode = prefixes[i];
 
       if (col.hasOwnProperty(shortcode)) {
         className = className + " col-"+shortcode+"-"+col[shortcode];
@@ -74,6 +98,16 @@ app.controller('gridCtrl',function  ($scope) {
     $scope.currentRow = rowNumber;
 
     $scope.inEditor.addClass('ineditor');
+
+  }
+
+  $scope.changeViewport = function  (number) {
+
+    number === 0 ? notxs = false : notxs = true ;
+
+    $scope.currentSize = number;
+
+    $('body').css('width',$scope.medias[number].size+'px');
 
   }
 
@@ -167,6 +201,7 @@ app.controller('gridCtrl',function  ($scope) {
   $scope.init = function  () {
     $scope.initSelection();
     $scope.showBtn = false;
+    $scope.notxs = true;
   }
 });
 
