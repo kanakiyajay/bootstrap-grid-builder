@@ -10,6 +10,9 @@ app.controller('gridCtrl',function  ($scope) {
   /**
   * Models
   **/
+
+  var prefixes = [ 'xs' , 'sm' , 'md' , 'lg'  , 'sm_offset' , 'md_offset' , 'lg_offset'];
+
   $scope.model = [
     {
       row : [
@@ -36,7 +39,7 @@ app.controller('gridCtrl',function  ($scope) {
   * lg - Large Devices >= 1200px      >> 3
   */
 
-  $scope.medias = [{
+  $scope.modes = [{
     size : 480,
     prefix : 'xs'
   },{
@@ -51,7 +54,8 @@ app.controller('gridCtrl',function  ($scope) {
   }]
 
   $scope.deviceSizes = ['480','780','992','1200'];
-  $scope.currentSize = 3;
+  $scope.currentMode = 3;
+  $scope.currentPrefix = $scope.modes[$scope.currentMode].prefix ;
 
   $scope.currentRow = 1;
   $scope.currentCol = 1;
@@ -70,7 +74,7 @@ app.controller('gridCtrl',function  ($scope) {
 
   $scope.getHtmlClass = function  (col) {
 
-    var prefixes = [ 'xs' , 'sm' , 'md' , 'lg'  , 'sm_offset' , 'md_offset' , 'lg_offset'];
+
     //Also Add Offsets
     className = "" ;
 
@@ -85,6 +89,21 @@ app.controller('gridCtrl',function  ($scope) {
     return className.replace('_','-');
   };
 
+  $scope.getCurrentClass = function  (col) {
+
+    /* Returns the current Active Class */
+    var className = '';
+
+    if (col.hasOwnProperty($scope.currentPrefix)) {
+      className = 'col-' + $scope.currentPrefix + '-' +col[$scope.currentPrefix];
+    };
+
+    if (col.hasOwnProperty($scope.currentPrefix+'_offset')) {
+      //.col-sm-offset-1
+      className = className + " col-" + $scope.currentPrefix + '-offset' + col[$scope.currentPrefix+'_offset'] ;
+    };
+    return className
+  }
 
   $scope.showEditor = function  (rowNumber , colNumber , e) {
 
@@ -103,16 +122,17 @@ app.controller('gridCtrl',function  ($scope) {
 
   $scope.changeViewport = function  (number) {
 
-    number === 0 ? notxs = false : notxs = true ;
+    number === 0 ? $scope.notxs = false : $scope.notxs = true ;
 
-    $scope.currentSize = number;
+    $scope.currentMode = number;
+    $scope.currentPrefix = $scope.modes[number].prefix;
 
-    $('body').css('width',$scope.medias[number].size+'px');
+    $('body').css('width',$scope.modes[number].size+'px');
 
   }
 
   $scope.getActive = function  (number) {
-    if (number === $scope.currentSize) {
+    if (number === $scope.currentMode) {
       return "active"
     }
     else {
@@ -126,7 +146,7 @@ app.controller('gridCtrl',function  ($scope) {
   $scope.addRow = function  () {
     var newrow = {
       row:[{
-        md : 1
+        md : 1 //Change according to Mode
       }]
     }
     $scope.model.push(newrow);
@@ -134,7 +154,7 @@ app.controller('gridCtrl',function  ($scope) {
 
   $scope.addCol = function  () {
       var newcol = {
-        md : 1
+        md : 1 //Change according to Mode
       };
 
       $scope.model[$scope.currentRow].row.push(newcol);
@@ -145,10 +165,16 @@ app.controller('gridCtrl',function  ($scope) {
 
   $scope.increaseWidth = function  () {
     //Should not be greater than 12
-
-    if($scope.getModelData().md !== 12 )
+    console.log($scope.currentPrefix);
+      if($scope.getModelData().hasOwnProperty($scope.currentPrefix))
       {
-       $scope.getModelData().md += 1 ;
+        if($scope.getModelData()[$scope.currentPrefix] !== 12 )
+          {
+           $scope.getModelData()[$scope.currentPrefix] += 1 ;
+          }
+      }
+      else{
+        $scope.getModelData()[$scope.currentPrefix] = 1 ;
       }
     }
 

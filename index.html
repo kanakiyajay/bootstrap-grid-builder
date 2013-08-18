@@ -38,15 +38,19 @@
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-        <li ng-click="changeViewport(3)" ng-class="getActive(3)"><a href="#">Desktop</a></li>
-        <li ng-click="changeViewport(1)" ng-class="getActive(1)"><a href="#">Tablet</a></li>
-        <li ng-click="changeViewport(0)" ng-class="getActive(0)"><a href="#">Mobile</a></li>
+        <li ng-click="changeViewport(3)" ng-class="getActive(3)"><a href="#">Large Devices</a></li>
+        <li ng-click="changeViewport(2)" ng-class="getActive(2)"><a href="#">Medium Devices</a></li>
+        <li ng-click="changeViewport(1)" ng-class="getActive(1)"><a href="#">Small Devices</a></li>
+        <li ng-click="changeViewport(0)" ng-class="getActive(0)"><a href="#">Extra Small</a></li>
+        <li style="opacity:0"><a href="#">D</a></li>
+         <!--
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Others <b class="caret"></b></a>
           <ul class="dropdown-menu">
             <li><a href="#">Extra Small</a></li>
           </ul>
         </li>
+          -->
       </ul>
       </div>
     </nav>
@@ -54,12 +58,13 @@
   <div class="container" id="main">
     <div class="row" ng-repeat="phone in model">
       <div ng-repeat="col in phone.row" ng-class="getHtmlClass(col)" ng-click="showEditor($parent.$index,$index,$event)">
-        {{$index+1}}
+        {{getCurrentClass(col)}}
       </div>
     </div>
     <div class="row">
       <button class="btn btn-primary" ng-click="addRow()">Add Row</button>
       <button class="btn btn-primary" ng-click="addCol()" ng-show="showBtn">Add Col</button>
+      <button class="btn btn-danger pull-right">Generate Html</button>
     </div>
   </div>
   <!--<button class="btn btn-primary ">Add Container</button>-->
