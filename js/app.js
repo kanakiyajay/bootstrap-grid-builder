@@ -3,6 +3,13 @@
 **
 **/
 
+/*
+* xs - Extra Small < 768px               >> 0
+* sm - Small Devices >= 768px      >> 1
+* md - Medium Devices >= 992px >> 2
+* lg - Large Devices >= 1200px      >> 3
+*/
+
 var app = angular.module('bootstrap-grid-builder',[]);
 
 app.controller('gridCtrl',function  ($scope) {
@@ -17,27 +24,36 @@ app.controller('gridCtrl',function  ($scope) {
     {
       row : [
       {
+        lg : 8,
+        md : 6,
+        sm : 3,
         xs : 12,
-        md : 9
       },
       {
-        md : 2,
-        md_offset : 1
+        lg : 3,
+        lg_offset : 1,
+        md : 5,
+        md_offset : 1,
+        sm : 8,
+        sm_offset : 1,
+        xs : 12
       }
       ]
     },{
       row : [{
-        md : 12,
-        xs : 12
+        lg : 6,
+        md : 6,
+        sm : 6,
+        xs : 6
+      },{
+        lg : 6,
+        md : 6,
+        sm : 6,
+        xs : 6
       }]
   }];
 
-  /*
-  * xs - Extra Small < 768px               >> 0
-  * sm - Small Devices >= 768px      >> 1
-  * md - Medium Devices >= 992px >> 2
-  * lg - Large Devices >= 1200px      >> 3
-  */
+
 
   $scope.modes = [{
     size : 480,
@@ -72,10 +88,22 @@ app.controller('gridCtrl',function  ($scope) {
     return $scope.model[$scope.currentRow].row[$scope.currentCol];
   }
 
-  $scope.getHtmlClass = function  (col) {
+  $scope.getHtmlClass = function  (rowNumber,colNumber,col) {
 
+    var className = '';
 
-    //Also Add Offsets
+    if (col.hasOwnProperty($scope.currentPrefix)) {
+      className = 'col-' + $scope.currentPrefix + '-' +col[$scope.currentPrefix];
+    };
+
+    if (col.hasOwnProperty($scope.currentPrefix+'_offset')) {
+      //.col-sm-offset-1
+      className = className + " col-" + $scope.currentPrefix + '-offset-' + col[$scope.currentPrefix+'_offset'] ;
+    };
+
+    return className.replace('_','-');
+
+    /*
     className = "" ;
 
     for (var i = prefixes.length - 1; i >= 0; i--) {
@@ -85,8 +113,13 @@ app.controller('gridCtrl',function  ($scope) {
         className = className + " col-"+shortcode+"-"+col[shortcode];
       };
 
+      if ($scope.currentCol===colNumber && $scope.currentRow === rowNumber) {
+        className = className + ' ineditor'
+      };
     };
+
     return className.replace('_','-');
+    */
   };
 
   $scope.getCurrentClass = function  (col) {
@@ -100,23 +133,18 @@ app.controller('gridCtrl',function  ($scope) {
 
     if (col.hasOwnProperty($scope.currentPrefix+'_offset')) {
       //.col-sm-offset-1
-      className = className + " col-" + $scope.currentPrefix + '-offset' + col[$scope.currentPrefix+'_offset'] ;
+      className = className + " col-" + $scope.currentPrefix + '-offset-' + col[$scope.currentPrefix+'_offset'] ;
     };
+
+    if (!className.length) className = "No Class";
     return className
   }
 
-  $scope.showEditor = function  (rowNumber , colNumber , e) {
+  $scope.showEditor = function  (rowNumber , colNumber) {
 
     $scope.showBtn = true;
-
-    if ($('.ineditor').length) $('.ineditor').removeClass('ineditor');
-
-    arguments.length===2  ? $scope.inEditor = $('#main').find('[class*=col]').first() : $scope.inEditor = $(e.target);
-
     $scope.currentCol = colNumber ;
     $scope.currentRow = rowNumber;
-
-    $scope.inEditor.addClass('ineditor');
 
   }
 
@@ -165,7 +193,7 @@ app.controller('gridCtrl',function  ($scope) {
 
   $scope.increaseWidth = function  () {
     //Should not be greater than 12
-    console.log($scope.currentPrefix);
+
       if($scope.getModelData().hasOwnProperty($scope.currentPrefix))
       {
         if($scope.getModelData()[$scope.currentPrefix] !== 12 )

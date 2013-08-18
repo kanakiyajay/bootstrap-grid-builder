@@ -16,11 +16,10 @@
       </div>
       <div class="collapse navbar-collapse">
 
-      <ul class="nav navbar-nav navbar-left" style="opacity:0">
+      <!--<ul class="nav navbar-nav navbar-left" style="opacity:0">
         <li><a href="">Dummy</a></li>
         <li><a href="">Dummy</a></li>
-        <li><a href="">Dummy</a></li>
-      </ul>
+      </ul>-->
 
       <ul class="nav navbar-nav navbar-left">
         <li><a href="">Width</a></li>
@@ -55,9 +54,9 @@
       </div>
     </nav>
   </div>
-  <div class="container" id="main">
+  <div class="container" id="{{currentPrefix}}">
     <div class="row" ng-repeat="phone in model">
-      <div ng-repeat="col in phone.row" ng-class="getHtmlClass(col)" ng-click="showEditor($parent.$index,$index,$event)">
+      <div ng-repeat="col in phone.row" ng-class="getHtmlClass($parent.$index,$index,col)" ng-click="showEditor($parent.$index,$index)">
         {{getCurrentClass(col)}}
       </div>
     </div>

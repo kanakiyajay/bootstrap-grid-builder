@@ -1,3 +1,6 @@
+/* Extra small devices (phones, up to 480px) */
+/* No media query since this is the default in Bootstrap */
+
 body{
   margin : 0 auto;
 }
@@ -16,6 +19,7 @@ h4 {
   margin-top: 10px;
   margin-bottom: 0;
 }
+
 [class*="col-lg-"] {
   padding-top: 15px;
   padding-bottom: 15px;
@@ -29,6 +33,22 @@ h4 {
   background-color: rgba(185,74,72,.15);
   border: 1px solid rgba(185,74,72,.2);
 }
+
+[class*="col-sm-"] {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  background-color: rgba(185,74,72,.15);
+  border: 1px solid rgba(185,74,72,.2);
+}
+
+[class*="col-xs-"] {
+  padding-top: 15px;
+  padding-bottom: 15px;
+  background-color: rgba(185,74,72,.15);
+  border: 1px solid rgba(185,74,72,.2);
+}
+
+
 .ineditor {
   border: 2px solid gray;
 }
