@@ -23,7 +23,7 @@
 
       <ul class="nav navbar-nav navbar-left">
         <li><a href="">Width</a></li>
-        <li><a href="">{{getModelData().md}}</a></li>
+        <li><a href="">{{getModelData()[currentPrefix]}}</a></li>
         <li><button class="btn btn-default navbar-btn" ng-click="increaseWidth()">+</button><li>
         <li><button class="btn btn-default navbar-btn" ng-click="decreaseWidth()">-</button><li>
         <!-- Add ng-show here -->
@@ -31,7 +31,7 @@
 
       <ul class="nav navbar-nav navbar-left" ng-show="notxs">
         <li><a href="">Offset</a></li>
-        <li><a href="">{{getModelData().md_offset}}</a></li>
+        <li><a href="">{{getModelData()[currentPrefix+'_offset']}}</a></li>
         <li><button class="btn btn-default navbar-btn" ng-click="increaseOffset()">+</button><li>
         <li><button class="btn btn-default navbar-btn" ng-click="decreaseOffset()">-</button><li>
       </ul>

@@ -1,6 +1,7 @@
-/** Bootstrap Grid Builder by Jay Kanakiya
-**
-**
+/**
+** Bootstrap Grid Builder by Jay Kanakiya
+** http://jaykanakiya.com
+** Licensed under BSD license
 **/
 
 /*
@@ -53,8 +54,6 @@ app.controller('gridCtrl',function  ($scope) {
       }]
   }];
 
-
-
   $scope.modes = [{
     size : 480,
     prefix : 'xs'
@@ -69,7 +68,6 @@ app.controller('gridCtrl',function  ($scope) {
     prefix : 'lg'
   }]
 
-  $scope.deviceSizes = ['480','780','992','1200'];
   $scope.currentMode = 3;
   $scope.currentPrefix = $scope.modes[$scope.currentMode].prefix ;
 
@@ -88,6 +86,8 @@ app.controller('gridCtrl',function  ($scope) {
     return $scope.model[$scope.currentRow].row[$scope.currentCol];
   }
 
+  /* IMP code */
+
   $scope.getHtmlClass = function  (rowNumber,colNumber,col) {
 
     var className = '';
@@ -101,25 +101,12 @@ app.controller('gridCtrl',function  ($scope) {
       className = className + " col-" + $scope.currentPrefix + '-offset-' + col[$scope.currentPrefix+'_offset'] ;
     };
 
-    return className.replace('_','-');
-
-    /*
-    className = "" ;
-
-    for (var i = prefixes.length - 1; i >= 0; i--) {
-      var shortcode = prefixes[i];
-
-      if (col.hasOwnProperty(shortcode)) {
-        className = className + " col-"+shortcode+"-"+col[shortcode];
-      };
-
       if ($scope.currentCol===colNumber && $scope.currentRow === rowNumber) {
         className = className + ' ineditor'
       };
-    };
 
-    return className.replace('_','-');
-    */
+    return className;
+
   };
 
   $scope.getCurrentClass = function  (col) {
@@ -174,7 +161,10 @@ app.controller('gridCtrl',function  ($scope) {
   $scope.addRow = function  () {
     var newrow = {
       row:[{
-        md : 1 //Change according to Mode
+        lg : 1,
+        md : 1 ,
+        sm : 1,
+        xs : 1
       }]
     }
     $scope.model.push(newrow);
@@ -182,7 +172,10 @@ app.controller('gridCtrl',function  ($scope) {
 
   $scope.addCol = function  () {
       var newcol = {
-        md : 1 //Change according to Mode
+        lg : 1,
+        md : 1 ,
+        sm : 1,
+        xs : 1
       };
 
       $scope.model[$scope.currentRow].row.push(newcol);
@@ -207,27 +200,31 @@ app.controller('gridCtrl',function  ($scope) {
     }
 
     $scope.decreaseWidth = function  () {
-    //Delele if less than 1
-      if($scope.getModelData().md === 1 )
-      {
-        //Use array.splice to remove the Col Object
-       $scope.model[$scope.currentRow].row.splice($scope.currentCol);
-       $scope.showBtn = false;
-      }
-      else{
-       $scope.getModelData().md -= 1;
+
+    if ($scope.getModelData().hasOwnProperty($scope.currentPrefix)) {
+
+        if($scope.getModelData()[$scope.currentPrefix] === 1 )
+        {
+          //delete $scope.getModelData()[$scope.currentPrefix];
+          //Use array.splice to remove the Col Object
+         $scope.model[$scope.currentRow].row.splice($scope.currentCol);
+         $scope.showBtn = false;
+        }
+        else{
+         $scope.getModelData()[$scope.currentPrefix] -= 1;
+        }
       }
     }
 
     $scope.increaseOffset = function  () {
     //Should not be greater than 10
-    if (!$scope.getModelData().hasOwnProperty('md_offset')) {
-      $scope.getModelData().md_offset = 1;
+    if (!$scope.getModelData().hasOwnProperty($scope.currentPrefix+'_offset')) {
+      $scope.getModelData()[$scope.currentPrefix+'_offset'] = 1;
     }
     else{
-      if($scope.getModelData().md_offset !== 10 )
+      if($scope.getModelData()[$scope.currentPrefix+'_offset'] !== 10 )
       {
-       $scope.getModelData().md_offset += 1 ;
+       $scope.getModelData()[$scope.currentPrefix+'_offset'] += 1 ;
       }
     }
     }
@@ -235,14 +232,14 @@ app.controller('gridCtrl',function  ($scope) {
     $scope.decreaseOffset = function  () {
     //Delete if less than 1
 
-    if ($scope.getModelData().hasOwnProperty('md_offset')) {
+    if ($scope.getModelData().hasOwnProperty($scope.currentPrefix+'_offset')) {
 
-      if($scope.getModelData().md_offset === 1 )
+      if($scope.getModelData()[$scope.currentPrefix+'_offset'] === 1 )
       {
-       delete $scope.getModelData().md_offset;
+       delete $scope.getModelData()[$scope.currentPrefix+'_offset'];
       }
       else{
-       $scope.getModelData().md_offset -= 1;
+       $scope.getModelData()[$scope.currentPrefix+'_offset'] -= 1;
       }
     };
 

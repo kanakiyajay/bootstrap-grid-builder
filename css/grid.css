@@ -20,35 +20,23 @@ h4 {
   margin-bottom: 0;
 }
 
-[class*="col-lg-"] {
+[class*="col-"] {
   padding-top: 15px;
   padding-bottom: 15px;
   background-color: rgba(185,74,72,.15);
   border: 1px solid rgba(185,74,72,.2);
 }
-
-[class*="col-md-"] {
-  padding-top: 15px;
-  padding-bottom: 15px;
-  background-color: rgba(185,74,72,.15);
-  border: 1px solid rgba(185,74,72,.2);
-}
-
-[class*="col-sm-"] {
-  padding-top: 15px;
-  padding-bottom: 15px;
-  background-color: rgba(185,74,72,.15);
-  border: 1px solid rgba(185,74,72,.2);
-}
-
-[class*="col-xs-"] {
-  padding-top: 15px;
-  padding-bottom: 15px;
-  background-color: rgba(185,74,72,.15);
-  border: 1px solid rgba(185,74,72,.2);
-}
-
 
 .ineditor {
   border: 2px solid gray;
 }
+
+
+/* Extra small devices (phones, up to 480px) is the default in Bootstrap */
+
+/*
+* xs - Extra Small < 768px               >> 0
+* sm - Small Devices >= 768px      >> 1
+* md - Medium Devices >= 992px >> 2
+* lg - Large Devices >= 1200px      >> 3
+*/
