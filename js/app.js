@@ -68,7 +68,7 @@ app.controller('gridCtrl',function  ($scope) {
     prefix : 'lg'
   }]
 
-  $scope.currentMode = 3;
+  $scope.currentMode = 0;
   $scope.currentPrefix = $scope.modes[$scope.currentMode].prefix ;
 
   $scope.currentRow = 1;
@@ -161,10 +161,10 @@ app.controller('gridCtrl',function  ($scope) {
   $scope.addRow = function  () {
     var newrow = {
       row:[{
-        lg : 1,
-        md : 1 ,
-        sm : 1,
-        xs : 1
+        lg : 3,
+        md : 3 ,
+        sm : 3,
+        xs : 3
       }]
     }
     $scope.model.push(newrow);
@@ -172,10 +172,10 @@ app.controller('gridCtrl',function  ($scope) {
 
   $scope.addCol = function  () {
       var newcol = {
-        lg : 1,
-        md : 1 ,
-        sm : 1,
-        xs : 1
+        lg : 3,
+        md : 3 ,
+        sm : 3,
+        xs : 3
       };
 
       $scope.model[$scope.currentRow].row.push(newcol);
@@ -253,6 +253,43 @@ app.controller('gridCtrl',function  ($scope) {
     $scope.initSelection();
     $scope.showBtn = false;
     $scope.notxs = true;
+    $scope.changeViewport($scope.currentMode);
+  }
+
+  $scope.generateHtml = function  () {
+
+    /* USE $compile here */
+    // model = [ { row : [ { col } , ...  ] } , ... ]
+
+    var html = '';
+    prefixes = [ 'xs' , 'sm' , 'md' , 'lg'];
+    offsets =   [ 'sm_offset' , 'md_offset' , 'lg_offset'];
+    $scope.model.forEach(function  (i) {
+
+      html += '<div class="row">\n' ;
+
+        i.row.forEach(function  (col) {
+          html += '\t<div class="';
+
+          prefixes.forEach(function  (shortcode) {
+            if (col.hasOwnProperty(shortcode)) {
+              html += ' col-' + shortcode + '-' + col[shortcode] ;
+            };
+          });
+
+          offsets.forEach(function  (shortcode) {
+            if (col.hasOwnProperty(shortcode)) {
+              html += ' col-' + shortcode.replace('_','-') + '-' + col[shortcode] ;
+            };
+          });
+
+          html += '">\n\t</div>\n'
+        });
+
+      html += '</div>\n' ;
+    });
+
+    console.log(html);
   }
 });
 
@@ -260,4 +297,5 @@ app.controller('gridCtrl',function  ($scope) {
   http://stackoverflow.com/questions/15256600/passing-2-index-values-within-nested-ng-repeat
   http://stackoverflow.com/questions/12430820/accessing-clicked-element-in-angularjs
   http://stackoverflow.com/questions/15458609/angular-js-how-to-execute-function-on-page-load
+  http://stackoverflow.com/questions/17982561/using-angular-templates-to-generate-exportable-html
 */

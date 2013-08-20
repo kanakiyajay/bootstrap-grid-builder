@@ -63,8 +63,23 @@
     <div class="row">
       <button class="btn btn-primary" ng-click="addRow()">Add Row</button>
       <button class="btn btn-primary" ng-click="addCol()" ng-show="showBtn">Add Col</button>
-      <button class="btn btn-danger pull-right">Generate Html</button>
+      <button class="btn btn-danger pull-right" ng-click="generateHtml()">Generate Html</button>
     </div>
+  </div>
+  <div class="container">
+      <div class="row">
+        <ul class="unstyled" id="notes">
+          <li>the key breakpoints in Bootstrap grid system.</li>
+          <li>/* Extra small devices (phones, up to 480px) */</li>
+          <li>/* No media query since this is the default in Bootstrap */</li>
+          <li>/* Small devices (tablets, 768px and up) */</li>
+          <li>/* Medium devices (desktops, 992px and up) */</li>
+          <li>/* Large devices (large desktops, 1200px and up) */</li>
+        </ul>
+      </div>
+  </div>
+  <div class="container">
+    <div xx-angulizer></div>
   </div>
   <!--<button class="btn btn-primary ">Add Container</button>-->
 </body>
