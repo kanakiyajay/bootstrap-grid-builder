@@ -333,4 +333,5 @@ app.controller('gridCtrl',function  ($scope) {
   http://stackoverflow.com/questions/12430820/accessing-clicked-element-in-angularjs
   http://stackoverflow.com/questions/15458609/angular-js-how-to-execute-function-on-page-load
   http://stackoverflow.com/questions/17982561/using-angular-templates-to-generate-exportable-html
+  http://css-tricks.com/snippets/jquery/draggable-without-jquery-ui/
 */
