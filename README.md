@@ -24,6 +24,8 @@ http://www.apache.org/licenses/LICENSE-2.0
 TO BE DONE :-
 
 <ul>
+  <li>Add Delete COlumn</li>
+  <li>Make a Tutorial Video</li>
   <li>Undo and Redo functionality</li>
   <li>Html generation should be done via $compile and should be instant</li>
   <li>Implement push-pull classes of bootstrap 3</li>
