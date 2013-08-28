@@ -2,85 +2,107 @@
 <head>
   <title>Bootstrap Grid Builder</title>
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="css/fonts/font-awesome.css">
   <link rel="stylesheet" type="text/css" href="css/grid.css">
+  <link rel="stylesheet" href="css/device-mockups.css">
   <script type="text/javascript" src="js/jquery.min.js"></script>
   <script type="text/javascript" src="js/angular.min.js"></script>
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
   <script type="text/javascript" src="js/app.js"></script>
+
 </head>
 <body ng-controller="gridCtrl" ng-init="init()">
-  <div class="container-fluid">
-    <nav class="navbar" role="navigation">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="#">Bootstrap Grid Builder</a>
+   <!-- All the devices available -->
+   <div id="devices">
+    <div class="btn-group">
+      <button type="button" class="btn btn-danger">Device</button>
+      <button type="button" style="min-height:34px;" class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+     <ul class="dropdown-menu" role="menu">
+        <li ng-click="changeViewport(3)" ng-class="getActive(3)"><a href="#"><i class="icon-desktop"></i> Large </a></li>
+        <li ng-click="changeViewport(2)" ng-class="getActive(2)"><a href="#"><i class="icon-tablet"></i> Medium </a></li>
+        <li ng-click="changeViewport(1)" ng-class="getActive(1)"><a href="#"><i class="icon-mobile-phone icon-large"></i> Small </a></li>
+        <li ng-click="changeViewport(0)" ng-class="getActive(0)"><a href="#"><i class="icon-mobile-phone"></i> Extra Small</a></li>
+      </ul>
+    </div>
+   </div>
+
+  <div id="toolbar">
+    <div class="btn-toolbar">
+      <div class="btn-group">
+          <button type="button" class="btn btn-default">WIdth</button>
+          <button type="button" class="btn btn-default">{{getModelData()[currentPrefix]}}</button>
       </div>
-      <div class="collapse navbar-collapse">
 
-      <!--<ul class="nav navbar-nav navbar-left" style="opacity:0">
-        <li><a href="">Dummy</a></li>
-        <li><a href="">Dummy</a></li>
-      </ul>-->
-
-      <ul class="nav navbar-nav navbar-left">
-        <li><a href="">Width</a></li>
-        <li><a href="">{{getModelData()[currentPrefix]}}</a></li>
-        <li><button class="btn btn-default navbar-btn" ng-click="increaseWidth()">+</button><li>
-        <li><button class="btn btn-default navbar-btn" ng-click="decreaseWidth()">-</button><li>
-        <!-- Add ng-show here -->
-      </ul>
-
-      <ul class="nav navbar-nav navbar-left" ng-show="notxs">
-        <li><a href="">Offset</a></li>
-        <li><a href="">{{getModelData()[currentPrefix+'_offset']}}</a></li>
-        <li><button class="btn btn-default navbar-btn" ng-click="increaseOffset()">+</button><li>
-        <li><button class="btn btn-default navbar-btn" ng-click="decreaseOffset()">-</button><li>
-      </ul>
-
-      <ul class="nav navbar-nav navbar-right">
-        <li ng-click="changeViewport(3)" ng-class="getActive(3)"><a href="#">Large Devices</a></li>
-        <li ng-click="changeViewport(2)" ng-class="getActive(2)"><a href="#">Medium Devices</a></li>
-        <li ng-click="changeViewport(1)" ng-class="getActive(1)"><a href="#">Small Devices</a></li>
-        <li ng-click="changeViewport(0)" ng-class="getActive(0)"><a href="#">Extra Small</a></li>
-        <li style="opacity:0"><a href="#">D</a></li>
-         <!--
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Others <b class="caret"></b></a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Extra Small</a></li>
-          </ul>
-        </li>
-          -->
-      </ul>
+      <div class="btn-group">
+          <button type="button" class="btn btn-default" ng-click="increaseWidth()">+</button>
+          <button type="button" class="btn btn-default" ng-click="decreaseWidth()">-</button>
       </div>
-    </nav>
+    </div>
+
+  <div class="btn-toolbar" ng-show="showOffset">
+    <div class="btn-group">
+        <button type="button" class="btn btn-default">Offset</button>
+        <button type="button" class="btn btn-default">{{getModelData()[currentPrefix+'_offset']}}</button>
+    </div>
+
+    <div class="btn-group">
+        <button type="button" class="btn btn-default" ng-click="increaseOffset()">+</button>
+        <button type="button" class="btn btn-default" ng-click="decreaseOffset()">-</button>
+    </div>
   </div>
-  <div class="container" id="{{currentPrefix}}">
-    <div class="row" ng-repeat="phone in model">
-      <div ng-repeat="col in phone.row" ng-class="getHtmlClass($parent.$index,$index,col)" ng-click="showEditor($parent.$index,$index)">
-        {{getCurrentClass(col)}}
+
+  <div class="btn-toolbar">
+
+    <div class="btn-group">
+        <button type="button" class="btn btn-primary" ng-click="addRow()">Add Row</button>
+        <button type="button" class="btn btn-primary" ng-click="addCol()" ng-show="showBtn">Add Col</button>
+    </div>
+  </div>
+
+  <div class="btn-toolbar">
+        <button type="button" class="btn btn-danger" ng-click="generateHtml()">Generate Html</button>
+  </div>
+
+  </div>
+   <!-- https://github.com/pixelsign/html5-device-mockups -->
+ <div class="dabblet" id="{{currentPrefix}}">
+  <div class="{{deviceClass()}}">
+    <div class="device">
+      <div class="container-fluid screen">
+        <div class="row" ng-repeat="phone in model">
+          <div ng-repeat="col in phone.row" ng-class="getHtmlClass($parent.$index,$index,col)" ng-click="showEditor($parent.$index,$index)">
+            {{getCurrentClass(col)}}
+          </div>
+        </div>
+
       </div>
     </div>
-    <div class="row">
-      <button class="btn btn-primary" ng-click="addRow()">Add Row</button>
-      <button class="btn btn-primary" ng-click="addCol()" ng-show="showBtn">Add Col</button>
-      <button class="btn btn-danger pull-right" ng-click="generateHtml()">Generate Html</button>
-    </div>
+  </div>
   </div>
   <div class="container">
       <div class="row">
         <ul class="unstyled" id="notes">
-          <li>the key breakpoints in Bootstrap grid system.</li>
-          <li>/* Extra small devices (phones, up to 480px) */</li>
-          <li>/* No media query since this is the default in Bootstrap */</li>
-          <li>/* Small devices (tablets, 768px and up) */</li>
-          <li>/* Medium devices (desktops, 992px and up) */</li>
-          <li>/* Large devices (large desktops, 1200px and up) */</li>
+          <li>Please refer <a href="http://getbootstrap.com/css/#grid">Bootstrap 3 Grid System</a></li>
+          <li>Following optimizations are made automatically</li>
+          <ul>
+            <li>If the larger size has the same width or offset as the prev ones , delete the larger ones</li>
+            <li>i.e. if xs has got the same col size as sm , then class for sm is automatically divided</li>
+          </ul>
         </ul>
       </div>
   </div>
   <div class="container">
-    <div xx-angulizer></div>
+    <div class="row">
+      <div class="col-md-12">
+        <pre>
+          <code class="language-markup" id="showHtml"></code>
+
+        </pre>
+      </div>
+    </div>
   </div>
+
+  <script type="text/javascript" src="js/prism.js"></script>
   <!--<button class="btn btn-primary ">Add Container</button>-->
 </body>
 </html>

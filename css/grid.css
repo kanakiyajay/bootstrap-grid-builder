@@ -1,6 +1,3 @@
-/* Extra small devices (phones, up to 480px) */
-/* No media query since this is the default in Bootstrap */
-
 body{
   margin : 0 auto;
 }
@@ -31,12 +28,172 @@ h4 {
   border: 2px solid gray;
 }
 
+#toolbar {
+  position: absolute;
+  top: 30%;
+  left: 1%;
+  background-color: lightgray;
+  padding: 2%;
+  z-index: 5;
+}
 
-/* Extra small devices (phones, up to 480px) is the default in Bootstrap */
+#toolbar .btn-toolbar {
+  margin-top: 5px;
+}
+#devices {
+  position: absolute;
+  right: 3%;
+  top:0;
+}
 
-/*
-* xs - Extra Small < 768px               >> 0
-* sm - Small Devices >= 768px      >> 1
-* md - Medium Devices >= 992px >> 2
-* lg - Large Devices >= 1200px      >> 3
+.dabblet{
+  width: 100%;
+  margin: 0 auto;
+}
+
+.screen {
+  background-color: white;
+  padding : 5px 20px ;
+}
+
+/*https://github.com/pixelsign/html5-device-mockups/
+* xs - Extra Small < 768px               >> 0 >> iPhone 5
+* sm - Small Devices >= 768px      >> 1 >> iPad
+* md - Medium Devices >= 992px >> 2 >> iPad Lanscape
+* lg - Large Devices >= 1200px      >> 3 >> iMac
 */
+
+#xs{
+  max-width: 350px;
+}
+
+#sm{
+  max-width: 770px;
+}
+
+#md{
+ max-width: 1000px;
+}
+
+#lg{
+  max-width: 1300px;
+}
+/**
+ * prism.js default theme for JavaScript, CSS and HTML
+ * Based on dabblet (http://dabblet.com)
+ * @author Lea Verou
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+  color: black;
+  text-shadow: 0 1px white;
+  font-family: Consolas, Monaco, 'Andale Mono', monospace;
+  direction: ltr;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
+  text-shadow: none;
+  background: #b3d4fc;
+}
+
+pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
+code[class*="language-"]::selection, code[class*="language-"] ::selection {
+  text-shadow: none;
+  background: #b3d4fc;
+}
+
+@media print {
+  code[class*="language-"],
+  pre[class*="language-"] {
+    text-shadow: none;
+  }
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: 1em;
+  margin: .5em 0;
+  overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+  background: #f5f2f0;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+}
+
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: slategray;
+}
+
+.token.punctuation {
+  color: #999;
+}
+
+.namespace {
+  opacity: .7;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number {
+  color: #905;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string {
+  color: #690;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: #a67f59;
+  background: hsla(0,0%,100%,.5);
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: #07a;
+}
+
+
+.token.regex,
+.token.important {
+  color: #e90;
+}
+
+.token.important {
+  font-weight: bold;
+}
+
+.token.entity {
+  cursor: help;
+}

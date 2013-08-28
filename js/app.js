@@ -1,15 +1,9 @@
-/**
-** Bootstrap Grid Builder by Jay Kanakiya
-** http://jaykanakiya.com
-** Licensed under BSD license
+/*!
+** Bootstrap Grid Builder
+** Licensed under the Apache License v2.0
+** http://www.apache.org/licenses/LICENSE-2.0
+** Built by Jay Kanakiya ( @techiejayk )
 **/
-
-/*
-* xs - Extra Small < 768px               >> 0
-* sm - Small Devices >= 768px      >> 1
-* md - Medium Devices >= 992px >> 2
-* lg - Large Devices >= 1200px      >> 3
-*/
 
 var app = angular.module('bootstrap-grid-builder',[]);
 
@@ -20,6 +14,8 @@ app.controller('gridCtrl',function  ($scope) {
   **/
 
   var prefixes = [ 'xs' , 'sm' , 'md' , 'lg'  , 'sm_offset' , 'md_offset' , 'lg_offset'];
+
+  //model = [ { row : [ { col } , ...  ] } , ... ]
 
   $scope.model = [
     {
@@ -55,7 +51,7 @@ app.controller('gridCtrl',function  ($scope) {
   }];
 
   $scope.modes = [{
-    size : 480,
+    size : 430,
     prefix : 'xs'
   },{
     size : 780,
@@ -71,8 +67,8 @@ app.controller('gridCtrl',function  ($scope) {
   $scope.currentMode = 0;
   $scope.currentPrefix = $scope.modes[$scope.currentMode].prefix ;
 
-  $scope.currentRow = 1;
-  $scope.currentCol = 1;
+  $scope.currentRow = 0;
+  $scope.currentCol = 0;
 
   $scope.inEditor = [];
 
@@ -129,6 +125,8 @@ app.controller('gridCtrl',function  ($scope) {
 
   $scope.showEditor = function  (rowNumber , colNumber) {
 
+    colNumber === 0 ? $scope.showOffset = false : $scope.showOffset = true ;
+    if ($scope.currentMode === 0 ) { $scope.showOffset = false };
     $scope.showBtn = true;
     $scope.currentCol = colNumber ;
     $scope.currentRow = rowNumber;
@@ -137,13 +135,31 @@ app.controller('gridCtrl',function  ($scope) {
 
   $scope.changeViewport = function  (number) {
 
-    number === 0 ? $scope.notxs = false : $scope.notxs = true ;
+    number === 0 ? $scope.showOffset = false : $scope.showOffset = true ;
 
     $scope.currentMode = number;
     $scope.currentPrefix = $scope.modes[number].prefix;
 
-    $('body').css('width',$scope.modes[number].size+'px');
+  }
 
+  /*
+  * xs - Extra Small < 768px               >> 0 >> iPhone 5
+  * sm - Small Devices >= 768px      >> 1 >> iPad
+  * md - Medium Devices >= 992px >> 2 >> iPad Landscape
+  * lg - Large Devices >= 1200px      >> 3 >> iMac
+  */
+
+  $scope.deviceClass = function  () {
+    var className  = "device-mockup ";
+    switch ($scope.currentPrefix)
+    {
+      case "xs": className += "iphone5 portrait black" ; break;
+      case "sm": className += "ipad portrait black" ; break;
+      case "md": className += "ipad landscape black" ; break ;
+      case "lg": className += "imac" ; break ;
+    }
+
+    return className;
   }
 
   $scope.getActive = function  (number) {
@@ -180,88 +196,95 @@ app.controller('gridCtrl',function  ($scope) {
 
       $scope.model[$scope.currentRow].row.push(newcol);
   }
+
   /**
   * widths and Offsets
   **/
 
   $scope.increaseWidth = function  () {
     //Should not be greater than 12
-
-      if($scope.getModelData().hasOwnProperty($scope.currentPrefix))
+      var cp = $scope.currentPrefix ;
+      if($scope.getModelData().hasOwnProperty(cp))
       {
-        if($scope.getModelData()[$scope.currentPrefix] !== 12 )
+        if($scope.getModelData()[cp] !== 12 )
           {
-           $scope.getModelData()[$scope.currentPrefix] += 1 ;
+           $scope.getModelData()[cp] += 1 ;
           }
       }
       else{
-        $scope.getModelData()[$scope.currentPrefix] = 1 ;
+        $scope.getModelData()[cp] = 1 ;
       }
     }
 
     $scope.decreaseWidth = function  () {
 
-    if ($scope.getModelData().hasOwnProperty($scope.currentPrefix)) {
+      var cp = $scope.currentPrefix ;
+      if ($scope.getModelData().hasOwnProperty(cp)) {
 
-        if($scope.getModelData()[$scope.currentPrefix] === 1 )
-        {
-          //delete $scope.getModelData()[$scope.currentPrefix];
-          //Use array.splice to remove the Col Object
-         $scope.model[$scope.currentRow].row.splice($scope.currentCol);
-         $scope.showBtn = false;
+          if($scope.getModelData()[cp] === 1 )
+          {
+            //delete $scope.getModelData()[$scope.currentPrefix];
+            //Use array.splice to remove the Col Object
+           $scope.model[$scope.currentRow].row.splice($scope.currentCol);
+           $scope.showBtn = false;
+          }
+          else{
+           $scope.getModelData()[cp] -= 1;
+          }
         }
-        else{
-         $scope.getModelData()[$scope.currentPrefix] -= 1;
-        }
-      }
     }
 
     $scope.increaseOffset = function  () {
     //Should not be greater than 10
-    if (!$scope.getModelData().hasOwnProperty($scope.currentPrefix+'_offset')) {
-      $scope.getModelData()[$scope.currentPrefix+'_offset'] = 1;
+    var cp = $scope.currentPrefix + '_offset' ;
+    if (!$scope.getModelData().hasOwnProperty(cp)) {
+      $scope.getModelData()[cp] = 1;
     }
     else{
-      if($scope.getModelData()[$scope.currentPrefix+'_offset'] !== 10 )
+      if($scope.getModelData()[cp] !== 10 )
       {
-       $scope.getModelData()[$scope.currentPrefix+'_offset'] += 1 ;
+       $scope.getModelData()[cp] += 1 ;
       }
     }
     }
 
     $scope.decreaseOffset = function  () {
     //Delete if less than 1
+    var cp = $scope.currentPrefix+'_offset' ;
+    if ($scope.getModelData().hasOwnProperty(cp)) {
 
-    if ($scope.getModelData().hasOwnProperty($scope.currentPrefix+'_offset')) {
-
-      if($scope.getModelData()[$scope.currentPrefix+'_offset'] === 1 )
+      if($scope.getModelData()[cp] === 1 )
       {
-       delete $scope.getModelData()[$scope.currentPrefix+'_offset'];
+       delete $scope.getModelData()[cp];
       }
       else{
-       $scope.getModelData()[$scope.currentPrefix+'_offset'] -= 1;
+       $scope.getModelData()[cp] -= 1;
       }
     };
 
   }
 
   $scope.initSelection = function  () {
-    $scope.showEditor(1,1);
+    $scope.showEditor(0,0);
   }
 
   $scope.init = function  () {
     $scope.initSelection();
     $scope.showBtn = false;
-    $scope.notxs = true;
+    $scope.showOffset = false;
     $scope.changeViewport($scope.currentMode);
   }
 
   $scope.generateHtml = function  () {
 
-    /* USE $compile here */
-    // model = [ { row : [ { col } , ...  ] } , ... ]
+    /* USE $compile here
 
-    var html = '';
+     model = [ { row : [ { col } , ...  ] } , ... ]
+     If the larger ones has the same width or offset as the prev ones , delete the larger ones
+     i.e. if xs has got the same col size as sm , no need for xs.
+
+    */
+    var html = '' , prev = 0;
     prefixes = [ 'xs' , 'sm' , 'md' , 'lg'];
     offsets =   [ 'sm_offset' , 'md_offset' , 'lg_offset'];
     $scope.model.forEach(function  (i) {
@@ -269,18 +292,28 @@ app.controller('gridCtrl',function  ($scope) {
       html += '<div class="row">\n' ;
 
         i.row.forEach(function  (col) {
-          html += '\t<div class="';
-
+          html += '\t<div class="' ;
+          prev = 0 ;
           prefixes.forEach(function  (shortcode) {
-            if (col.hasOwnProperty(shortcode)) {
-              html += ' col-' + shortcode + '-' + col[shortcode] ;
-            };
-          });
 
-          offsets.forEach(function  (shortcode) {
             if (col.hasOwnProperty(shortcode)) {
-              html += ' col-' + shortcode.replace('_','-') + '-' + col[shortcode] ;
+              if (prev !== col[shortcode]) {
+                html += ' col-' + shortcode + '-' + col[shortcode] ;
+                prev = col[shortcode] ;
+              };
             };
+
+          });
+          prev = 0 ;
+          offsets.forEach(function  (shortcode) {
+
+            if (col.hasOwnProperty(shortcode)) {
+              if (prev !== col[shortcode]) {
+                html += ' col-' + shortcode.replace('_','-') + '-' + col[shortcode] ;
+                prev = col[shortcode] ;
+              };
+            };
+
           });
 
           html += '">\n\t</div>\n'
@@ -289,7 +322,9 @@ app.controller('gridCtrl',function  ($scope) {
       html += '</div>\n' ;
     });
 
-    console.log(html);
+    $('#showHtml').text(html);
+    Prism.highlightAll();
+    k = html.toString().replace('<','&lt;') ;
   }
 });
 
