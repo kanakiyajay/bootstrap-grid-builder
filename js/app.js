@@ -328,7 +328,7 @@ app.controller('gridCtrl',function  ($scope) {
   }
 });
 
-/* StackOverflow referred
+/* Websites referred
   http://stackoverflow.com/questions/15256600/passing-2-index-values-within-nested-ng-repeat
   http://stackoverflow.com/questions/12430820/accessing-clicked-element-in-angularjs
   http://stackoverflow.com/questions/15458609/angular-js-how-to-execute-function-on-page-load

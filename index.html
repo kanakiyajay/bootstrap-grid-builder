@@ -1,6 +1,6 @@
 <html ng-app="bootstrap-grid-builder">
 <head>
-  <title>Bootstrap Grid Builder</title>
+  <title>Bootstrap 3 Grid Builder</title>
   <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
   <link rel="stylesheet" type="text/css" href="css/fonts/font-awesome.css">
   <link rel="stylesheet" type="text/css" href="css/grid.css">
@@ -79,18 +79,6 @@
     </div>
   </div>
   </div>
-  <div class="container">
-      <div class="row">
-        <ul class="unstyled" id="notes">
-          <li>Please refer <a href="http://getbootstrap.com/css/#grid">Bootstrap 3 Grid System</a></li>
-          <li>Following optimizations are made automatically</li>
-          <ul>
-            <li>If the larger size has the same width or offset as the prev ones , delete the larger ones</li>
-            <li>i.e. if xs has got the same col size as sm , then class for sm is automatically divided</li>
-          </ul>
-        </ul>
-      </div>
-  </div>
 
 <!-- Modal -->
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -111,6 +99,15 @@
     </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
 
+  <div id="footer">
+    <div class="btn-toolbar">
+      <div class="btn-group">
+        <a href="http://jaykanakiya.com" type="button" class="btn btn-default">Created by Jay Kanakiya</a>
+        <a href="https://github.com/kanakiyajay/bootstrap-grid-builder" type="button" class="btn btn-default">Fork on GitHub</a>
+        <a href="http://jquer.in" title="jQuery plugins" type="button" class="btn btn-default">A jQuery plugin a Day</a>
+      </div>
+    </div>
+  </div>
   <script type="text/javascript" src="js/jquery-draggable.min.js"></script>
   <script type="text/javascript">
     $(document).ready(function  () {
