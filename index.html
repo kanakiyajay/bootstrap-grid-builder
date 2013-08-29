@@ -27,7 +27,15 @@
       </ul>
     </div>
    </div>
-
+   <div id="templates">
+    <div class="btn-group">
+      <button type="button" class="btn btn-danger">Templates</button>
+      <button type="button" style="min-height:34px;" class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+     <ul class="dropdown-menu" role="menu">
+        <li ng-repeat="template in templates" ng-click="changeTemplate($index)">{{template.name}}</li>
+      </ul>
+    </div>
+   </div>
   <div id="toolbar">
     <div class="btn-toolbar">
       <div class="btn-group">

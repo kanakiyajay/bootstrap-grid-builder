@@ -7,7 +7,7 @@
 
 var app = angular.module('bootstrap-grid-builder',[]);
 
-app.controller('gridCtrl',function  ($scope) {
+app.controller('gridCtrl',function  ($scope,$http) {
 
   /**
   * Models
@@ -49,6 +49,10 @@ app.controller('gridCtrl',function  ($scope) {
         xs : 6
       }]
   }];
+
+  $http.get('data/templates.json').then(function  (res) {
+    $scope.templates = res.data ;
+  });
 
   $scope.modes = [{
     size : 430,
@@ -131,6 +135,13 @@ app.controller('gridCtrl',function  ($scope) {
     $scope.currentCol = colNumber ;
     $scope.currentRow = rowNumber;
 
+  }
+
+  $scope.changeTemplate = function  (index) {
+    console.log(index);
+    console.log($scope.templates[index].model);
+    $scope.model = $scope.templates[index].model;
+    console.log($scope.model);
   }
 
   $scope.changeViewport = function  (number) {
@@ -324,7 +335,6 @@ app.controller('gridCtrl',function  ($scope) {
 
     $('#showHtml').text(html);
     Prism.highlightAll();
-    k = html.toString().replace('<','&lt;') ;
   }
 });
 
