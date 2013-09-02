@@ -76,8 +76,8 @@ app.controller('gridCtrl',function  ($scope,$http) {
 
   $scope.inEditor = [];
 
-  $scope.showBtn = false;
-
+  $scope.showBtn = false ;
+  $scope.showPopover = false ;
   /**
   * Functions
   **/
@@ -90,15 +90,15 @@ app.controller('gridCtrl',function  ($scope,$http) {
 
   $scope.getHtmlClass = function  (rowNumber,colNumber,col) {
 
+    var cp =$scope.currentPrefix ;
     var className = '';
-
-    if (col.hasOwnProperty($scope.currentPrefix)) {
-      className = 'col-' + $scope.currentPrefix + '-' +col[$scope.currentPrefix];
+    if (col.hasOwnProperty(cp)) {
+      className = 'col-' + cp + '-' +col[cp];
     };
 
-    if (col.hasOwnProperty($scope.currentPrefix+'_offset')) {
+    if (col.hasOwnProperty(cp+'_offset')) {
       //.col-sm-offset-1
-      className = className + " col-" + $scope.currentPrefix + '-offset-' + col[$scope.currentPrefix+'_offset'] ;
+      className = className + " col-" + cp + '-offset-' + col[cp+'_offset'] ;
     };
 
       if ($scope.currentCol===colNumber && $scope.currentRow === rowNumber) {
@@ -112,42 +112,52 @@ app.controller('gridCtrl',function  ($scope,$http) {
   $scope.getCurrentClass = function  (col) {
 
     /* Returns the current Active Class */
+    var cp = $scope.currentPrefix ;
     var className = '';
 
-    if (col.hasOwnProperty($scope.currentPrefix)) {
-      className = 'col-' + $scope.currentPrefix + '-' +col[$scope.currentPrefix];
+    if (col.hasOwnProperty(cp)) {
+      className = 'col-' + cp + '-' +col[cp];
     };
 
-    if (col.hasOwnProperty($scope.currentPrefix+'_offset')) {
+    if (col.hasOwnProperty(cp+'_offset')) {
       //.col-sm-offset-1
-      className = className + " col-" + $scope.currentPrefix + '-offset-' + col[$scope.currentPrefix+'_offset'] ;
+      className = className + " col-" + cp + '-offset-' + col[cp+'_offset'] ;
     };
 
     if (!className.length) className = "No Class";
     return className
   }
 
-  $scope.showEditor = function  (rowNumber , colNumber) {
+  $scope.showEditor = function  (rowNumber , colNumber , e) {
 
     colNumber === 0 ? $scope.showOffset = false : $scope.showOffset = true ;
+
     if ($scope.currentMode === 0 ) { $scope.showOffset = false };
-    $scope.showBtn = true;
+
+    $scope.showPopover = true ;
+    //http://api.jqueryui.com/position/
+    $("#toolbar").position({
+      my : "center top",
+      at : "center bottom",
+      of : $(e.target)
+    });
+
     $scope.currentCol = colNumber ;
     $scope.currentRow = rowNumber;
 
   }
 
   $scope.changeTemplate = function  (index) {
-    console.log(index);
-    console.log($scope.templates[index].model);
+
     $scope.model = $scope.templates[index].model;
-    console.log($scope.model);
+    $scope.showPopover = false ;
+
   }
 
   $scope.changeViewport = function  (number) {
 
     number === 0 ? $scope.showOffset = false : $scope.showOffset = true ;
-
+    $scope.showPopover = false ;
     $scope.currentMode = number;
     $scope.currentPrefix = $scope.modes[number].prefix;
 
@@ -195,9 +205,12 @@ app.controller('gridCtrl',function  ($scope,$http) {
       }]
     }
     $scope.model.push(newrow);
+    $scope.showPopover = false ;
   }
 
-  $scope.addCol = function  () {
+  //model = [ { row : [ { col } , ...  ] } , ... ]
+
+  $scope.addCol = function  (currentRow) {
       var newcol = {
         lg : 3,
         md : 3 ,
@@ -205,9 +218,13 @@ app.controller('gridCtrl',function  ($scope,$http) {
         xs : 3
       };
 
-      $scope.model[$scope.currentRow].row.push(newcol);
+      $scope.model[currentRow].row.push(newcol);
+      $scope.showPopover = false ;
   }
 
+  $scope.showCol = function  (row,col) {
+    return $scope.model[row].row.length-1 === col;
+  }
   /**
   * widths and Offsets
   **/
@@ -237,7 +254,7 @@ app.controller('gridCtrl',function  ($scope,$http) {
             //delete $scope.getModelData()[$scope.currentPrefix];
             //Use array.splice to remove the Col Object
            $scope.model[$scope.currentRow].row.splice($scope.currentCol);
-           $scope.showBtn = false;
+
           }
           else{
            $scope.getModelData()[cp] -= 1;
@@ -275,15 +292,11 @@ app.controller('gridCtrl',function  ($scope,$http) {
 
   }
 
-  $scope.initSelection = function  () {
-    $scope.showEditor(0,0);
-  }
-
   $scope.init = function  () {
-    $scope.initSelection();
-    $scope.showBtn = false;
-    $scope.showOffset = false;
-    $scope.changeViewport($scope.currentMode);
+
+    $scope.showOffset = false ;
+    $scope.showPopover = false ;
+    $scope.changeViewport($scope.currentMode) ;
   }
 
   $scope.generateHtml = function  () {

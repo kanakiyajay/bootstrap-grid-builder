@@ -4,21 +4,21 @@
       "model" : [
       {
         "row" : [
-        {
-          "lg" : 4,
-          "md" : 3,
-          "sm" : 2,
-          "xs" : 6
-        },
-        {
-          "lg" : 2,
-          "lg_offset" : 1,
-          "md" : 4,
-          "md_offset" : 1,
-          "sm" : 6,
-          "sm_offset" : 1,
-          "xs" : 6
-        }
+          {
+            "lg" : 4,
+            "md" : 3,
+            "sm" : 2,
+            "xs" : 6
+          },
+          {
+            "lg" : 2,
+            "lg_offset" : 1,
+            "md" : 4,
+            "md_offset" : 1,
+            "sm" : 6,
+            "sm_offset" : 1,
+            "xs" : 6
+          }
         ]
       },{
         "row" : [{

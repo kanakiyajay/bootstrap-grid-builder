@@ -1,5 +1,7 @@
 body{
   margin : 0 auto;
+  background: url(tiny_grid.png);
+  padding-top: 20px;
 }
 .container {
   padding-left: 15px;
@@ -29,24 +31,23 @@ h4 {
 }
 
 #toolbar {
-  position: absolute;
-  top: 30%;
-  left: 1%;
-  background-color: #E0E0E0;
+  display: block;
   padding: 2%;
   z-index: 5;
-  border :1px dashed darkgray;
 }
 
 #toolbar .btn-toolbar {
   margin-top: 5px;
 }
-#devices {
-  position: absolute;
-  right: 3%;
-  top:0;
+
+nav.navbar-default {
+  background-color: transparent;
+  border :none;
 }
 
+.navbar-nav{
+  background-color: white
+}
 .dabblet{
   width: 100%;
   margin: 0 auto;
@@ -123,8 +124,14 @@ code[class*="language-"]::selection, code[class*="language-"] ::selection {
     text-shadow: none;
   }
 }
+/* Scrollbar */
 
-/* Code blocks */
+::-webkit-scrollbar-corner{background:transparent;display:none}
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:#dbdbdb;}
+::-webkit-scrollbar-thumb{border-radius:30px;background:#ababab;-webkit-box-shadow:none}
+
+/* Syntax Highlight */
 pre[class*="language-"] {
   padding: 1em;
   margin: .5em 0;

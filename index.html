@@ -8,6 +8,7 @@
   <link rel="stylesheet" type="text/css" href="css/grid.css">
   <link rel="stylesheet" href="css/device-mockups.css">
   <script type="text/javascript" src="js/jquery.min.js"></script>
+  <script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script>
   <script type="text/javascript" src="js/angular.min.js"></script>
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
   <script type="text/javascript" src="js/app.js"></script>
@@ -15,6 +16,31 @@
 </head>
 <body ng-controller="gridCtrl" ng-init="init()">
    <!-- All the devices available -->
+   <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <ul class="nav navbar-nav navbar-left">
+      <li><a data-toggle="modal" href="#myModal" ng-click="generateHtml()">Generate Html</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Templates <b class="caret"></b></a>
+      <ul class="dropdown-menu" role="menu">
+        <li ng-repeat="template in templates" ng-click="changeTemplate($index)"><a href="#">{{template.name}}</a></li>
+      </ul>
+    </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown">Devices <b class="caret"></b></a>
+      <ul class="dropdown-menu" role="menu">
+        <li ng-click="changeViewport(3)" ng-class="getActive(3)"><a href="#"><i class="icon-desktop"></i> Large </a></li>
+        <li ng-click="changeViewport(2)" ng-class="getActive(2)"><a href="#"><i class="icon-tablet"></i> Medium </a></li>
+        <li ng-click="changeViewport(1)" ng-class="getActive(1)"><a href="#"><i class="icon-mobile-phone icon-large"></i> Small </a></li>
+        <li ng-click="changeViewport(0)" ng-class="getActive(0)"><a href="#"><i class="icon-mobile-phone"></i> Extra Small</a></li>
+      </ul>
+    </li>
+  </ul>
+  </nav>
+  <!--
    <div id="devices">
     <div class="btn-group">
       <button type="button" class="btn btn-danger">Device</button>
@@ -27,6 +53,8 @@
       </ul>
     </div>
    </div>
+   -->
+   <!--
    <div id="templates">
     <div class="btn-group">
       <button type="button" class="btn btn-danger">Templates</button>
@@ -35,8 +63,13 @@
         <li ng-repeat="template in templates" ng-click="changeTemplate($index)">{{template.name}}</li>
       </ul>
     </div>
+    <div class="btn-toolbar">
+        <a data-toggle="modal" href="#myModal" class="btn btn-danger" ng-click="generateHtml()">Generate Html</a>
+  </div>
    </div>
-  <div id="toolbar">
+ -->
+  <div id="toolbar" class="popover" ng-show="showPopover">
+    <div class="arrow"></div>
     <div class="btn-toolbar">
       <div class="btn-group">
           <button type="button" class="btn btn-default">WIdth</button>
@@ -63,14 +96,10 @@
 
   <div class="btn-toolbar">
 
-    <div class="btn-group">
+    <!--<div class="btn-group">
         <button type="button" class="btn btn-primary" ng-click="addRow()">Add Row</button>
         <button type="button" class="btn btn-primary" ng-click="addCol()" ng-show="showBtn">Add Col</button>
-    </div>
-  </div>
-
-  <div class="btn-toolbar">
-        <a data-toggle="modal" href="#myModal" class="btn btn-danger" ng-click="generateHtml()">Generate Html</a>
+    </div>-->
   </div>
 
   </div>
@@ -80,11 +109,14 @@
     <div class="device">
       <div class="container-fluid screen">
         <div class="row" ng-repeat="phone in model">
-          <div ng-repeat="col in phone.row" ng-class="getHtmlClass($parent.$index,$index,col)" ng-click="showEditor($parent.$index,$index)">
+          <div ng-repeat="col in phone.row" ng-class="getHtmlClass($parent.$index,$index,col)" ng-click="showEditor($parent.$index,$index,$event)">
             {{getCurrentClass(col)}}
+            <button data-toggle="tooltip" title="Add Column" ng-click="addCol($parent.$index)" class="btn btn-danger btn-xs pull-right" ng-show="showCol($parent.$index,$index)">+</button>
           </div>
         </div>
-
+        <div class="row">
+          <button type="button" class="btn btn-primary" ng-click="addRow()">Add Row</button>
+        </div>
       </div>
     </div>
   </div>
@@ -102,8 +134,12 @@
 <pre><code class="language-markup" id="showHtml"></code></pre>
         </div>
         <div class="modal-footer">
+          <div class="btn-group pull-right">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          Please Share
+          <a target="_blank" class="btn btn-default" href="http://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fjaykanakiya.com/bootstrap-grid-builder/">Share on Facebook</a>
+          <a target="_blank" class="btn btn-default" href="https://twitter.com/intent/tweet?text=The%20Bootstrap%203%20Grid%20Builder&url=http%3A%2F%2Fjaykanakiya.com/bootstrap-grid-builder/&via=techiejayk">Tweet</a>
+          <a target="_blank" class="btn btn-default" href="https://plus.google.com/share?url=http%3A%2F%2Fjaykanakiya.com/bootstrap-grid-builder/">Google+</a>
+      </div>
         </div>
       </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
@@ -112,7 +148,7 @@
   <div id="footer">
     <div class="btn-toolbar">
       <div class="btn-group">
-        <a href="http://jaykanakiya.com" type="button" class="btn btn-default">Created by Jay Kanakiya</a>
+        <a href="http://jaykanakiya.com" type="button" class="btn btn-info">By Jay Kanakiya</a>
         <a href="https://github.com/kanakiyajay/bootstrap-grid-builder" type="button" class="btn btn-default">Fork on GitHub</a>
         <a href="http://jquer.in" title="jQuery plugins" type="button" class="btn btn-default">A jQuery plugin a Day</a>
       </div>
@@ -125,12 +161,14 @@
 
     </div>
   </div>
+  <!--
   <script type="text/javascript" src="js/jquery-draggable.min.js"></script>
   <script type="text/javascript">
     $(document).ready(function  () {
       $('#toolbar').drags();
     })
   </script>
+  -->
   <script async defer type="text/javascript" src="js/prism.js"></script>
   <script type="text/javascript" async>
 
