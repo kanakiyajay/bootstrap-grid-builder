@@ -23,16 +23,16 @@ http://www.apache.org/licenses/LICENSE-2.0
 
 TO BE DONE :-
 
-- [ x ]   Pre-made Templates
-- [  ]   Add a delete column button
-- [ x ]   Instead of toolbar, Use left-click popovers
-- [ x ]   Add buttons inside the cols
-- [  ]   KeyBoard Shortcuts
-- [  ]   Make a Tutorial Video
-- [  ]   Undo and Redo functionality
-- [  ]   Copy and Paste functionality
-- [  ]   Save and Reload functionality
-- [  ]   Html generation should be done via $compile and should be instant
-- [  ]   Implement push-pull classes of bootstrap 3
-- [  ]   Implement Grid Builder for 2.3.2
-- [  ]   Make a builder for Foundation
+- [x]   Pre-made Templates
+- []   Add a delete column button
+- [x]   Instead of toolbar, Use left-click popovers
+- [x]   Add buttons inside the cols
+- []   KeyBoard Shortcuts
+- []   Make a Tutorial Video
+- []   Undo and Redo functionality
+- []   Copy and Paste functionality
+- []   Save and Reload functionality
+- []   Html generation should be done via $compile and should be instant
+- []   Implement push-pull classes of bootstrap 3
+- []   Implement Grid Builder for 2.3.2
+- []   Make a builder for Foundation
