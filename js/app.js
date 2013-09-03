@@ -50,7 +50,6 @@ app.controller('gridCtrl',['$scope','$http','localStorageService',function  ($sc
   **/
   $scope.$watch('model',function  (oldVal,newVal) {
 
-      console.log(oldVal , newVal);
       localStorageService.add('model_default',JSON.stringify(newVal));
 
     },true);
@@ -306,13 +305,14 @@ app.controller('gridCtrl',['$scope','$http','localStorageService',function  ($sc
       html += '<div class="row">\n' ;
 
         i.row.forEach(function  (col) {
+          //!!Add Check for empty rows
           html += '\t<div class="' ;
           prev = 0 ;
           prefixes.forEach(function  (shortcode) {
 
             if (col.hasOwnProperty(shortcode)) {
               if (prev !== col[shortcode]) {
-                html += ' col-' + shortcode + '-' + col[shortcode] ;
+                html += ' col-' + shortcode + '-' + col[shortcode] ;//!!Solve the extra space
                 prev = col[shortcode] ;
               };
             };
@@ -344,6 +344,7 @@ app.controller('gridCtrl',['$scope','$http','localStorageService',function  ($sc
     });
 
     $('#showHtml').text(html);
+    $("#showJson").text(JSON.stringify($scope.model));
     Prism.highlightAll();
   }
 }]);

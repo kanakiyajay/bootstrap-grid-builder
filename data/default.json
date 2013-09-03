@@ -1,36 +1,59 @@
 [
     {
-      "row" : [
-      {
-        "lg" : 8,
-        "md" : 6,
-        "sm" : 3,
-        "xs" : 12,
-        "content" : ""
-      },
-      {
-        "lg" : 3,
-        "lg_offset" : 1,
-        "md" : 5,
-        "md_offset" : 1,
-        "sm" : 8,
-        "sm_offset" : 1,
-        "xs" : 12,
-        "content" : ""
-      }
-      ]
-    },{
-      "row" : [{
-        "lg" : 6,
-        "md" : 6,
-        "sm" : 6,
-        "xs" : 6,
-        "content" : ""
-      },{
-        "lg" : 6,
-        "md" : 6,
-        "sm" : 6,
-        "xs" : 6,
-        "content" : ""
-      }]
-  }]
+        "row": [
+            {
+                "lg": 2,
+                "md": 3,
+                "sm": 3,
+                "xs": 12,
+                "content": "Logo"
+            },
+            {
+                "lg": 9,
+                "lg_offset": 1,
+                "md": 8,
+                "md_offset": 1,
+                "sm": 8,
+                "sm_offset": 1,
+                "xs": 12,
+                "content": "Navigation"
+            }
+        ]
+    },
+    {
+        "row": [
+            {
+                "lg": 12,
+                "md": 12,
+                "sm": 12,
+                "xs": 12,
+                "content": "Marketing Talk"
+            }
+        ]
+    },
+    {
+        "row": [
+            {
+                "lg": 4,
+                "md": 4,
+                "sm": 4,
+                "xs": 6,
+                "content": "Info1"
+            },
+            {
+                "lg": 4,
+                "md": 4,
+                "sm": 4,
+                "xs": 6,
+                "content": "Info2"
+            },
+            {
+                "lg": 4,
+                "md": 4,
+                "sm": 4,
+                "xs": 5,
+                "content": "Info3"
+            }
+        ]
+    }
+]
