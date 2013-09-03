@@ -28,12 +28,13 @@ TO BE DONE :-
 - [x]   Instead of toolbar, Use left-click popovers
 - [x]   Add buttons inside the cols
 - []   KeyBoard Shortcuts
-- []   Ids to the Cols.
+- []   Migrate to Grunt.js
+- [x]   Content PlaceHolders
 - []   Make a Tutorial Video
 - []   Undo and Redo functionality
 - []   Copy and Paste functionality
 - [x]   Save and Reload functionality
 - []   Html generation should be done via $compile and should be instant
 - []   Implement push-pull classes of bootstrap 3
-- []   Implement Grid Builder for 2.3.2
-- []   Make a builder for Foundation
+- []   Make a Grid Builder for Bootstrap 2.3.2
+- []   Make a Grid builder for Foundation framework

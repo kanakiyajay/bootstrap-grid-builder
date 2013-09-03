@@ -70,7 +70,6 @@
    </div>
  -->
   <div id="toolbar" class="popover" ng-show="showPopover">
-    <div class="arrow"></div>
     <div class="btn-toolbar">
       <div class="btn-group">
           <button type="button" class="btn btn-default">WIdth</button>
@@ -94,13 +93,7 @@
         <button type="button" class="btn btn-default" ng-click="decreaseOffset()">-</button>
     </div>
   </div>
-
-  <div class="btn-toolbar">
-
-    <!--<div class="btn-group">
-        <button type="button" class="btn btn-primary" ng-click="addRow()">Add Row</button>
-        <button type="button" class="btn btn-primary" ng-click="addCol()" ng-show="showBtn">Add Col</button>
-    </div>-->
+    <input type="text" class="form-control" ng-model="model[currentRow].row[currentCol].content" ng-maxlength="22">
   </div>
 
   </div>
@@ -133,6 +126,7 @@
         </div>
         <div class="modal-body">
 <pre><code class="language-markup" id="showHtml"></code></pre>
+<!--<pre><code class="language-javascript">{{ model | json }}</code></pre>-->
         </div>
         <div class="modal-footer">
           <div class="btn-group pull-right">

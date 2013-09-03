@@ -6,7 +6,7 @@
         "md" : 6,
         "sm" : 3,
         "xs" : 12,
-        "content" : "Hello World"
+        "content" : ""
       },
       {
         "lg" : 3,
@@ -15,7 +15,8 @@
         "md_offset" : 1,
         "sm" : 8,
         "sm_offset" : 1,
-        "xs" : 12
+        "xs" : 12,
+        "content" : ""
       }
       ]
     },{
@@ -23,11 +24,13 @@
         "lg" : 6,
         "md" : 6,
         "sm" : 6,
-        "xs" : 6
+        "xs" : 6,
+        "content" : ""
       },{
         "lg" : 6,
         "md" : 6,
         "sm" : 6,
-        "xs" : 6
+        "xs" : 6,
+        "content" : ""
       }]
   }]

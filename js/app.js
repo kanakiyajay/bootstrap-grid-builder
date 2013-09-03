@@ -17,12 +17,6 @@ app.controller('gridCtrl',['$scope','$http','localStorageService',function  ($sc
 
   //model = [ { row : [ { col } , ...  ] } , ... ]
 
-  $http.get('data/default.json').then(function  (res) {
-    $scope.model = res.data;
-  });
-
-
-
   $http.get('data/templates.json').then(function  (res) {
     $scope.templates = res.data ;
   });
@@ -56,7 +50,8 @@ app.controller('gridCtrl',['$scope','$http','localStorageService',function  ($sc
   **/
   $scope.$watch('model',function  (oldVal,newVal) {
 
-      localStorageService.add('model_default',JSON.stringify($scope.model));
+      console.log(oldVal , newVal);
+      localStorageService.add('model_default',JSON.stringify(newVal));
 
     },true);
 
@@ -280,7 +275,13 @@ app.controller('gridCtrl',['$scope','$http','localStorageService',function  ($sc
     if (localStorageService.get('model_default')!==null) {
       console.log("Prev Model");
       $scope.model = JSON.parse(localStorageService.get('model_default'))
-    };
+    }
+    else
+    {
+      $http.get('data/default.json').then(function  (res) {
+        $scope.model = res.data;
+      });
+    }
 
     $scope.showOffset = false ;
     $scope.showPopover = false ;
@@ -329,7 +330,14 @@ app.controller('gridCtrl',['$scope','$http','localStorageService',function  ($sc
 
           });
 
-          html += '">\n\t</div>\n'
+          html += '">\n\t\t' ;
+
+          if (col.content) {
+            html+= col.content + '\n' ;
+          };
+
+          html += '\t</div>\n' ;
+
         });
 
       html += '</div>\n' ;
@@ -346,5 +354,6 @@ app.controller('gridCtrl',['$scope','$http','localStorageService',function  ($sc
   http://stackoverflow.com/questions/15458609/angular-js-how-to-execute-function-on-page-load
   http://stackoverflow.com/questions/17982561/using-angular-templates-to-generate-exportable-html
   http://stackoverflow.com/questions/15112584/using-scope-watch-and-scope-apply
+  http://stackoverflow.com/questions/14183614/in-angularjs-how-do-i-dynamically-assign-ng-model
   http://gregpike.net/demos/angular-local-storage/demo.html
 */
