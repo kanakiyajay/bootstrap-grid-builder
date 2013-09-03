@@ -28,10 +28,11 @@ TO BE DONE :-
 - [x]   Instead of toolbar, Use left-click popovers
 - [x]   Add buttons inside the cols
 - []   KeyBoard Shortcuts
+- []   Ids to the Cols.
 - []   Make a Tutorial Video
 - []   Undo and Redo functionality
 - []   Copy and Paste functionality
-- []   Save and Reload functionality
+- [x]   Save and Reload functionality
 - []   Html generation should be done via $compile and should be instant
 - []   Implement push-pull classes of bootstrap 3
 - []   Implement Grid Builder for 2.3.2

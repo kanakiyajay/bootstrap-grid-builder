@@ -10,6 +10,7 @@
   <script type="text/javascript" src="js/jquery.min.js"></script>
   <script type="text/javascript" src="js/jquery-ui-1.10.3.custom.min.js"></script>
   <script type="text/javascript" src="js/angular.min.js"></script>
+  <script type="text/javascript" src="js/angular-localstorage.js"></script>
   <script type="text/javascript" src="js/bootstrap.min.js"></script>
   <script type="text/javascript" src="js/app.js"></script>
 
@@ -110,7 +111,7 @@
       <div class="container-fluid screen">
         <div class="row" ng-repeat="phone in model">
           <div ng-repeat="col in phone.row" ng-class="getHtmlClass($parent.$index,$index,col)" ng-click="showEditor($parent.$index,$index,$event)">
-            {{getCurrentClass(col)}}
+            {{model[$parent.$index].row[$index].content || getCurrentClass(col)}}
             <button data-toggle="tooltip" title="Add Column" ng-click="addCol($parent.$index)" class="btn btn-danger btn-xs pull-right" ng-show="showCol($parent.$index,$index)">+</button>
           </div>
         </div>

@@ -5,9 +5,9 @@
 ** Built by Jay Kanakiya ( @techiejayk )
 **/
 
-var app = angular.module('bootstrap-grid-builder',[]);
+var app = angular.module('bootstrap-grid-builder',['LocalStorageModule']);
 
-app.controller('gridCtrl',function  ($scope,$http) {
+app.controller('gridCtrl',['$scope','$http','localStorageService',function  ($scope,$http,localStorageService) {
 
   /**
   * Models
@@ -17,38 +17,11 @@ app.controller('gridCtrl',function  ($scope,$http) {
 
   //model = [ { row : [ { col } , ...  ] } , ... ]
 
-  $scope.model = [
-    {
-      row : [
-      {
-        lg : 8,
-        md : 6,
-        sm : 3,
-        xs : 12,
-      },
-      {
-        lg : 3,
-        lg_offset : 1,
-        md : 5,
-        md_offset : 1,
-        sm : 8,
-        sm_offset : 1,
-        xs : 12
-      }
-      ]
-    },{
-      row : [{
-        lg : 6,
-        md : 6,
-        sm : 6,
-        xs : 6
-      },{
-        lg : 6,
-        md : 6,
-        sm : 6,
-        xs : 6
-      }]
-  }];
+  $http.get('data/default.json').then(function  (res) {
+    $scope.model = res.data;
+  });
+
+
 
   $http.get('data/templates.json').then(function  (res) {
     $scope.templates = res.data ;
@@ -81,6 +54,11 @@ app.controller('gridCtrl',function  ($scope,$http) {
   /**
   * Functions
   **/
+  $scope.$watch('model',function  (oldVal,newVal) {
+
+      localStorageService.add('model_default',JSON.stringify($scope.model));
+
+    },true);
 
   $scope.getModelData = function  () {
     return $scope.model[$scope.currentRow].row[$scope.currentCol];
@@ -149,7 +127,12 @@ app.controller('gridCtrl',function  ($scope,$http) {
 
   $scope.changeTemplate = function  (index) {
 
-    $scope.model = $scope.templates[index].model;
+    var path = "data/"+$scope.templates[index].path+'.json';
+    $http.get(path).then(function  (res) {
+
+      $scope.model = res.data;
+
+    });
     $scope.showPopover = false ;
 
   }
@@ -294,10 +277,16 @@ app.controller('gridCtrl',function  ($scope,$http) {
 
   $scope.init = function  () {
 
+    if (localStorageService.get('model_default')!==null) {
+      console.log("Prev Model");
+      $scope.model = JSON.parse(localStorageService.get('model_default'))
+    };
+
     $scope.showOffset = false ;
     $scope.showPopover = false ;
     $scope.changeViewport($scope.currentMode) ;
-  }
+
+    }
 
   $scope.generateHtml = function  () {
 
@@ -349,12 +338,13 @@ app.controller('gridCtrl',function  ($scope,$http) {
     $('#showHtml').text(html);
     Prism.highlightAll();
   }
-});
+}]);
 
 /* Websites referred
   http://stackoverflow.com/questions/15256600/passing-2-index-values-within-nested-ng-repeat
   http://stackoverflow.com/questions/12430820/accessing-clicked-element-in-angularjs
   http://stackoverflow.com/questions/15458609/angular-js-how-to-execute-function-on-page-load
   http://stackoverflow.com/questions/17982561/using-angular-templates-to-generate-exportable-html
-  http://css-tricks.com/snippets/jquery/draggable-without-jquery-ui/
+  http://stackoverflow.com/questions/15112584/using-scope-watch-and-scope-apply
+  http://gregpike.net/demos/angular-local-storage/demo.html
 */
