@@ -1,3 +1,9 @@
+/*!
+** Bootstrap Grid Builder
+** Licensed under the Apache License v2.0
+** http://www.apache.org/licenses/LICENSE-2.0
+** Built by Jay Kanakiya ( @techiejayk )
+**/
 
 var app = angular.module('bootstrap-grid-builder',['ngDragDrop']);
 var pckry ;
@@ -411,6 +417,13 @@ function nearestNum (number) {
   http://codepen.io/desandro/pen/mdJnF
   https://github.com/metafizzy/packery/issues/56
   https://github.com/codef0rmer/angular-dragdrop/issues/37
+  http://stackoverflow.com/questions/15256600/passing-2-index-values-within-nested-ng-repeat
+  http://stackoverflow.com/questions/12430820/accessing-clicked-element-in-angularjs
+  http://stackoverflow.com/questions/15458609/angular-js-how-to-execute-function-on-page-load
+  http://stackoverflow.com/questions/17982561/using-angular-templates-to-generate-exportable-html
+  http://stackoverflow.com/questions/15112584/using-scope-watch-and-scope-apply
+  http://stackoverflow.com/questions/14183614/in-angularjs-how-do-i-dynamically-assign-ng-model
+  http://gregpike.net/demos/angular-local-storage/demo.html
   http://stackoverflow.com/questions/16900050/angular-js-ng-repeat-across-multiple-elements
   http://stackoverflow.com/questions/979256/sorting-an-array-of-javascript-objects
   http://html5-demos.appspot.com/static/css/webkit-canvas.html
