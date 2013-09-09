@@ -344,7 +344,7 @@ app.controller('gridCtrl',['$scope','$http','localStorageService',function  ($sc
     });
 
     $('#showHtml').text(html);
-    //$("#showJson").text(JSON.stringify($scope.model));
+    $("#showJson").text(JSON.stringify($scope.model));
     Prism.highlightAll();
   }
 }]);

@@ -43,7 +43,7 @@
 			bottom: 14.6747352%;
 			left:   13.364486%;
 			right:  13.364486%;
-			overflow: hidden;
+			overflow: scroll;
 		}
 
 		.device-mockup > .device > .button {

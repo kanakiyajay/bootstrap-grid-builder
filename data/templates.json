@@ -6,9 +6,21 @@
     "path" : "simple_marketing"
   },
   {
-    "name" : "Default" ,
+    "name" : "Blank" ,
     "description" : "The default template for Bootstrap Grid Builder",
     "creator" : "Jay Kanakiya" ,
     "path" : "default"
+  },
+  {
+    "name" :"Product Launch",
+    "description" : "A landing page for new company or device or app",
+    "creator": "Jay Kanakiya",
+    "path" :"launch"
+  },
+  {
+    "name" :"List",
+    "description" : "A webpage for a lot of information similar to jquery mobile lists",
+    "creator": "Jay Kanakiya",
+    "path" :"list"
   }
 ]

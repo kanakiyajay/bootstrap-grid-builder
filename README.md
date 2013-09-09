@@ -23,6 +23,7 @@ http://www.apache.org/licenses/LICENSE-2.0
 
 TO BE DONE :-
 
+- []   Nested Grids
 - [x]   Pre-made Templates
 - []   Add a delete column button
 - [x]   Instead of toolbar, Use left-click popovers
