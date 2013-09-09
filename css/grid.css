@@ -1,68 +1,95 @@
-body{
-  margin : 0 auto;
-  background: url(tiny_grid.png);
+body {
+  background: url('tiny_grid.png') ;
   padding-top: 20px;
 }
-.container {
-  padding-left: 15px;
-  padding-right: 15px;
+
+/* Bootstrap Overwrite */
+
+nav.navbar-default {
+  background-color: transparent ;
+  border: 0
 }
 
-h4 {
-  margin-top: 25px;
-}
-.row {
-  margin-bottom: 20px;
-}
-.row .row {
-  margin-top: 10px;
-  margin-bottom: 0;
+.navbar-nav{
+  background-color: white ;
 }
 
-[class*="col-"] {
-  -webkit-transition: all 0.5s ease-in-out;
-  -moz-transition: all 0.5s ease-in-out;
-  -o-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  background-color: rgba(185,74,72,.15);
-  border: 1px solid rgba(185,74,72,.2);
+nav.navbar-fixed-bottom{
+  width: 20%;
+  padding-top: 5px;
+  background-color: white;
+  border: 1px dashed rgba(0,0,0,0.3)
+}
+@media (min-width: 768px) {
+  .navbar-nav > li > a {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  nav a.btn{
+    margin-left: 5px
+  }
+}
+
+#footer{
+  margin-bottom: 0
+}
+/* Bootstrap Overwrite end*/
+
+/* Grid Playground */
+
+.item {
+  height: 40px;
+  background-color: rgba(185, 74, 72, 0.15);
+  border: 1px solid rgba(185, 74, 72, 0.2);
 }
 
 .ineditor {
+  background-color: rgba(185, 74, 72, 0.3);
   -moz-box-shadow:    inset 0 0 3px #000000;
    -webkit-box-shadow: inset 0 0 3px #000000;
    box-shadow:         inset 0 0 3px #000000;
 }
 
-#toolbar {
-  display: block;
-  padding: 2%;
-  z-index: 5;
+.item:hover {
+  border-color: gray;
 }
 
-#toolbar .btn-toolbar {
-  margin-top: 5px;
+.item.is-dragging,
+.item.is-positioning-post-drag {
+  border-color: white;
+  background-color: rgba(185, 74, 72, 0.5);
+  z-index: 2;
 }
 
-nav.navbar-default {
-  background-color: transparent;
-  border :none;
+.handle {
+  cursor: move;
+  background: #555;
+  background: rgba(199, 69, 69, 0.9);
+  margin-top: 2px;
+  width: 20px;
+  height: 20px;
+  margin-left: -12px;
 }
 
-.navbar-nav{
-  background-color: white
-}
+/* Grid Playground End */
+
+/* Device Mockups  */
+
 .dabblet{
   width: 100%;
   margin: 0 auto;
 }
-
-.screen {
+.screen{
   background-color: white;
-  padding : 5px 20px ;
 }
+
+#lg .screen {
+  padding : 5px;
+  background: -webkit-canvas(animation) white;
+}
+
+
+/* End Device Mockups */
 
 /*https://github.com/pixelsign/html5-device-mockups/
 * xs - Extra Small < 768px               >> 0 >> iPhone 5
@@ -86,128 +113,10 @@ nav.navbar-default {
 #lg{
   max-width: 1300px;
 }
-/**
- * prism.js default theme for JavaScript, CSS and HTML
- * Based on dabblet (http://dabblet.com)
- * @author Lea Verou
- */
 
-code[class*="language-"],
-pre[class*="language-"] {
-  color: black;
-  text-shadow: 0 1px white;
-  font-family: Consolas, Monaco, 'Andale Mono', monospace;
-  direction: ltr;
-  text-align: left;
-  white-space: pre;
-  word-spacing: normal;
-
-  -moz-tab-size: 4;
-  -o-tab-size: 4;
-  tab-size: 4;
-
-  -webkit-hyphens: none;
-  -moz-hyphens: none;
-  -ms-hyphens: none;
-  hyphens: none;
-}
-
-pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
-code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
-  text-shadow: none;
-  background: #b3d4fc;
-}
-
-pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
-code[class*="language-"]::selection, code[class*="language-"] ::selection {
-  text-shadow: none;
-  background: #b3d4fc;
-}
-
-@media print {
-  code[class*="language-"],
-  pre[class*="language-"] {
-    text-shadow: none;
-  }
-}
 /* Scrollbar */
 
 ::-webkit-scrollbar-corner{background:transparent;display:none}
 ::-webkit-scrollbar{width:8px;height:8px}
 ::-webkit-scrollbar-track{background:#dbdbdb;}
 ::-webkit-scrollbar-thumb{border-radius:30px;background:#ababab;-webkit-box-shadow:none}
-
-/* Syntax Highlight */
-pre[class*="language-"] {
-  padding: 1em;
-  margin: .5em 0;
-  overflow: auto;
-}
-
-:not(pre) > code[class*="language-"],
-pre[class*="language-"] {
-  background: #f5f2f0;
-}
-
-/* Inline code */
-:not(pre) > code[class*="language-"] {
-  padding: .1em;
-  border-radius: .3em;
-}
-
-.token.comment,
-.token.prolog,
-.token.doctype,
-.token.cdata {
-  color: slategray;
-}
-
-.token.punctuation {
-  color: #999;
-}
-
-.namespace {
-  opacity: .7;
-}
-
-.token.property,
-.token.tag,
-.token.boolean,
-.token.number {
-  color: #905;
-}
-
-.token.selector,
-.token.attr-name,
-.token.string {
-  color: #690;
-}
-
-.token.operator,
-.token.entity,
-.token.url,
-.language-css .token.string,
-.style .token.string {
-  color: #a67f59;
-  background: hsla(0,0%,100%,.5);
-}
-
-.token.atrule,
-.token.attr-value,
-.token.keyword {
-  color: #07a;
-}
-
-
-.token.regex,
-.token.important {
-  color: #e90;
-}
-
-.token.important {
-  font-weight: bold;
-}
-
-.token.entity {
-  cursor: help;
-}

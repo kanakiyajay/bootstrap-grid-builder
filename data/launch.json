@@ -1,0 +1,60 @@
+[
+    {
+        "row": [
+            {
+                "lg": 12,
+                "md": 12,
+                "sm": 12,
+                "xs": 12,
+                "content": "Navigation"
+            }
+        ]
+    },
+    {
+        "row": [
+            {
+                "lg": 12,
+                "md": 12,
+                "sm": 12,
+                "xs": 12,
+                "content": "Our awesome Company"
+            }
+        ]
+    },
+    {
+        "row": [
+            {
+                "lg": 12,
+                "md": 12,
+                "sm": 12,
+                "xs": 12,
+                "content": "Sign-up form"
+            }
+        ]
+    },
+    {
+        "row": [
+            {
+                "lg": 4,
+                "md": 4,
+                "sm": 4,
+                "xs": 4,
+                "content": "Info1"
+            },
+            {
+                "lg": 4,
+                "md": 4,
+                "sm": 4,
+                "xs": 4,
+                "content": "Info2"
+            },
+            {
+                "lg": 4,
+                "md": 4,
+                "sm": 4,
+                "xs": 4,
+                "content": "Info3"
+            }
+        ]
+    }
+]
