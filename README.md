@@ -1,7 +1,5 @@
 # BootStrap 3 Grid Builder
 
-## [DEMO](http://jaykanakiya.com/bootstrap-grid-builder/ "bootstrap layout generator")
-
 TL;DR | A quick layout generator for Bootstrap 3.Visit the link above
 
 Bootstrap 3 has a new super-powerful [grid system](http://getbootstrap.com/css/#grid) with four tiers of grid classes—phones, tablets, desktops, and large desktops—you can do some super crazy awesome layouts.But it quickly gets complicated as you try to wrap your head around it.Bootstrap 3 is more flexible in terms of what it can do but keeping 3 different layouts in your head simultaneously is very complex.
